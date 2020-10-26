@@ -85,6 +85,22 @@ class Database implements ConnectionInterface
     }
 
     /**
+     * Begin a fluent query against a database table.
+     *
+     * @param  string $table
+     *
+     * @return \Illuminate\Database\Query\Builder
+     */
+    public function tableRaw($table)
+    {
+        $processor = $this->getPostProcessor();
+
+        $query = new Builder($this, $this->getQueryGrammar(), $processor);
+
+        return $query->from($table);
+    }	
+	
+    /**
      * Get a new raw query expression.
      *
      * @param  mixed $value
